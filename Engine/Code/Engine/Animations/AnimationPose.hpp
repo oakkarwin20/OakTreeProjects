@@ -28,6 +28,7 @@ public:
 	static AnimationPose GetBlendFromTwoPoses( AnimationPose const& poseA, AnimationPose const& poseB, float blendFactorParametric );		// Parametric means [0,1]
 	void DebugPrintJointHierarchy();
 	void AddVertsForDebugJointsAndBones( std::vector<Vertex_PCU>& verts ) const;
+	void DebugDrawJointBasis( std::vector<Vertex_PCU>& animVerts, int jointID, float length, float thickness ) const;
 
 public:
 	std::vector<AnimationJoint> m_jointList;

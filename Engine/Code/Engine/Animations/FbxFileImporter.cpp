@@ -508,9 +508,9 @@ void InitializeFBX( std::string const& fileName, FbxScene** fbxScene, FbxManager
     (*fbxManager)->SetIOSettings( ioSettings );
 
     // load file
-    FbxImporter* importer	  = FbxImporter::Create( *fbxManager, "Importer" );
-    bool		 importStatus = importer->Initialize( fileName.c_str(), -1, (*fbxManager)->GetIOSettings() );
-    *fbxScene	  = nullptr;
+    FbxImporter* importer	    = FbxImporter::Create( *fbxManager, "Importer" );
+    bool		 importStatus   = importer->Initialize( fileName.c_str(), -1, (*fbxManager)->GetIOSettings() );
+    *fbxScene	                = nullptr;
     if ( importStatus )
     {
         *fbxScene = FbxScene::Create( *fbxManager, "FbxScene" );

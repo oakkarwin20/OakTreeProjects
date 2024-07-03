@@ -72,25 +72,20 @@ void GameMode_Animations::Startup()
 // 		time += 100.0f;
 // 	}
 
-	m_map	  = new Map_Animations();
+	m_map	 = new Map_Animations();
 	m_player = new Player( this, Vec3(0.0f, 0.0f, 1.0f) );
 	m_player->Update( 0.016f );
 
-	// Init animation timeline
-// 	m_animTimeline.SetAnimClipAndBindPose( &m_player->m_animController->m_animClip_Vault, m_player->m_animController->m_animBindPose_Vault );
-// 	m_animTimeline.UpdateSampledPose();
-
 	//----------------------------------------------------------------------------------------------------------------------
-	// Init pointers to animClips and animPoses inside the anim timeline
+	// Init animation timeline
+	// Set pointers to animClips and animPoses inside the anim timeline
 	// animClips and animPoses are stored in the animController class
 	//----------------------------------------------------------------------------------------------------------------------
 	std::vector<AnimationClip>& animClipList = m_player->m_animController->m_animClipList;
 	std::vector<AnimationPose>& animPoseList = m_player->m_animController->m_animPoseList;
 	m_animTimeline.InitAnimClipList( animClipList );
 	m_animTimeline.InitAnimPoseList( animPoseList );
-
-	// Init animation timeline
-	m_animTimeline.SetAnimClipAndBindPose( m_animTimeline.m_animClipList[0], *m_animTimeline.m_animPoseList[0] );
+	// Sample a pose once to render a valid pose on startup
 	m_animTimeline.UpdateSampledPose();
 }
 
@@ -171,13 +166,18 @@ void GameMode_Animations::UpdateDebugKeys()
 	}
 	if ( g_theInput->WasKeyJustPressed( KEYCODE_DELETE ) )
 	{
-		g_ToggleAnimTimeline_Delete = !g_ToggleAnimTimeline_Delete;
-		bool isCursorHidden			= (g_ToggleAnimTimeline_Delete == true) ? false : true;
-		g_isCursorHidden			= isCursorHidden;
-
-		// Update caret info
-		m_animTimeline.ToggleVisibility();
+		ToggleAnimTimeline();
 	}
+	if ( g_theInput->WasKeyJustPressed( KEYCODE_RIGHT_MOUSE ) )
+	{
+		// Enable camera panning while animTimeline is on
+		g_isCursorHidden = true;
+	}
+	else if ( g_theInput->WasKeyJustReleased( KEYCODE_RIGHT_MOUSE ) )
+	{
+		g_isCursorHidden = false;
+	}
+
 
 	// Control camera dist from player
 	if ( g_theInput->IsKeyDown( '9' ) )
@@ -369,7 +369,7 @@ void GameMode_Animations::RenderWorldObjects() const
 	//----------------------------------------------------------------------------------------------------------------------
 	if ( m_animTimeline.IsVisible() )
 	{
-		m_animTimeline.RenderAnimPose( verts );
+		m_animTimeline.RenderAnimPose( verts, 2.5f, 0.5f );
 	}
 	//----------------------------------------------------------------------------------------------------------------------
 	// Player
@@ -729,14 +729,6 @@ void GameMode_Animations::UpdatePhysics( float deltaSeconds )
 //----------------------------------------------------------------------------------------------------------------------
 void GameMode_Animations::UpdateAnimTimeline()
 {
-	if ( g_theInput->WasKeyJustPressed( '1' ) )
-	{
-		m_animTimeline.SetAnimClipAndBindPose( &m_player->m_animController->m_animClip_FlyingLeftKick, m_player->m_animController->m_animBindPose_FlyingLeftKick );
-	}
-	if ( g_theInput->WasKeyJustPressed( '2' ) )
-	{
-		m_animTimeline.SetAnimClipAndBindPose( &m_player->m_animController->m_animClip_HighLeftKick, m_player->m_animController->m_animBindPose_HighLeftKick );
-	}
 	if ( g_theInput->WasKeyJustPressed( KEYCODE_LEFTARROW ) )
 	{
 		m_animTimeline.DecrementAnimClipIndex();
@@ -744,6 +736,14 @@ void GameMode_Animations::UpdateAnimTimeline()
 	if ( g_theInput->WasKeyJustPressed( KEYCODE_RIGHTARROW ) )
 	{
 		m_animTimeline.IncrementAnimClipIndex();
+	}
+	if ( g_theInput->WasKeyJustPressed( KEYCODE_UPARROW ) )
+	{
+		m_animTimeline.IncrementJointIndex();
+	}
+	if ( g_theInput->WasKeyJustPressed( KEYCODE_DOWNARROW ) )
+	{
+		m_animTimeline.DecrementJointIndex();
 	}
 
 	if ( g_theInput->IsKeyDown( KEYCODE_LEFT_MOUSE ) )
@@ -759,6 +759,17 @@ void GameMode_Animations::UpdateAnimTimeline()
 	{
 		m_animTimeline.DeselectCaret();
 	}
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------
+void GameMode_Animations::ToggleAnimTimeline()
+{
+	g_ToggleAnimTimeline_Delete = !g_ToggleAnimTimeline_Delete;
+	bool isCursorHidden			= (g_ToggleAnimTimeline_Delete == true) ? false : true;
+	g_isCursorHidden			= isCursorHidden;
+	// Update caret info
+	m_animTimeline.ToggleVisibility();
 }
 
 

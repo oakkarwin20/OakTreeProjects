@@ -64,7 +64,7 @@ void Player::Render() const
 	// Raycast arrow, player to fwd
 	Vec3 rayFwdEnd = m_raycastPlayerToFwd.m_rayStartPosition + ( m_raycastPlayerToFwd.m_rayFwdNormal * m_physicsController->m_vaultTriggerDist );
 	AddVertsForArrow3D( raycastVerts, m_raycastPlayerToFwd.m_rayStartPosition, rayFwdEnd, 0.6f, Rgba8::MAGENTA );
-	if ( m_raycastPlayerToFwd.m_didImpact )
+	if ( (m_raycastPlayerToFwd.m_didImpact) && (m_raycastPlayerToFwd.m_impactDist <= m_physicsController->m_vaultTriggerDist) )
 	{
 		// Impact normal
 		Vec3 endPos = m_raycastPlayerToFwd.m_impactPos + ( m_raycastPlayerToFwd.m_impactNormal * 5.0f );

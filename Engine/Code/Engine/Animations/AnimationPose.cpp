@@ -67,8 +67,8 @@ void AnimationPose::AddVertsForDebugJointsAndBones( std::vector<Vertex_PCU>& ver
 	// AddVerts to debug draw joints & bones
 	for ( int jointIndex = 0; jointIndex < m_jointList.size(); jointIndex++ )
 	{
-		AnimationJoint const& joint			  = m_jointList[jointIndex];
-		Transform const& curJointTransform_WS = LocalToModel_Transform(jointIndex);
+		AnimationJoint const& joint			  = m_jointList[ jointIndex ];
+		Transform const& curJointTransform_WS = LocalToModel_Transform( jointIndex );
 		if ( joint.m_parentJointIndex >= 0 )
 		{
 			Transform const& parentJointTransform_WS = LocalToModel_Transform( joint.m_parentJointIndex );
@@ -77,4 +77,25 @@ void AnimationPose::AddVertsForDebugJointsAndBones( std::vector<Vertex_PCU>& ver
 //			DebugDrawJointBasis ( verts, curJointTransform_WS, 2.0f, 0.1f );
 		}
 	}
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------
+void AnimationPose::DebugDrawJointBasis( std::vector<Vertex_PCU>& animVerts, int jointID, float length, float thickness ) const
+{
+	Transform  const& curJointTransform_WS	= LocalToModel_Transform( jointID );
+	Vec3	   const& curJointPos_WS		= curJointTransform_WS.m_position;
+	Quaternion const& curJointQuat_WS		= curJointTransform_WS.m_rotation;
+	Mat44			  curJointMatrix_WS		= Quaternion::GetAsMatrix( curJointPos_WS, curJointQuat_WS );
+	Vec3			  quadFwd				= curJointMatrix_WS.GetIBasis3D();
+	Vec3			  quadLeft				= curJointMatrix_WS.GetJBasis3D();
+	Vec3			  quadUp				= curJointMatrix_WS.GetKBasis3D();
+	float			  scalar				= length;
+	Vec3 const&		  start					= curJointPos_WS;
+	Vec3			   fwdEnd				= start + (quadFwd	* scalar );
+	Vec3			  leftEnd				= start + (quadLeft * scalar );
+	Vec3			    upEnd				= start + (quadUp   * scalar );
+	AddVertsForArrow3D( animVerts, start,  fwdEnd, thickness, Rgba8::RED	); 
+	AddVertsForArrow3D( animVerts, start, leftEnd, thickness, Rgba8::GREEN  ); 
+	AddVertsForArrow3D( animVerts, start,   upEnd, thickness, Rgba8::BLUE   ); 	
 }

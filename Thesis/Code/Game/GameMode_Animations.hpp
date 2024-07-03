@@ -48,6 +48,9 @@ public:
 //	void UpdateAnimations( float deltaSeconds );
 	void UpdateAnimTimeline();
 
+	// Animation Timeline
+	void ToggleAnimTimeline();
+
 public:
 	// Core Variables
 	float m_currentTime					= 0.0f;
