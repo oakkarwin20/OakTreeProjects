@@ -17,6 +17,9 @@
     <Filter Include="GameModes\GameMode Animation">
       <UniqueIdentifier>{fb908089-e6c3-4003-9e5c-efb42cd1aef1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameModes\Thesis Inverse Kinematics">
+      <UniqueIdentifier>{f4101b9d-a884-4147-ad54-c57fdec0328a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main_Windows.cpp">
@@ -27,21 +30,6 @@
     </ClCompile>
     <ClCompile Include="GameCommon.cpp">
       <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode_CCD_3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode_Quadruped_3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode_EulerTest.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode_FABRIK_3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode2D.cpp">
-      <Filter>GameModes</Filter>
     </ClCompile>
     <ClCompile Include="GameModeBase.cpp">
       <Filter>GameModes</Filter>
@@ -58,29 +46,11 @@
     <ClCompile Include="Quadruped.cpp">
       <Filter>Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="GameMode_RobotArm_3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode_Spider_3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
     <ClCompile Include="SpiderBase.cpp">
       <Filter>Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="GameMode_FABRIK_FwdOnly_3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode_2BoneIK_3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
-    <ClCompile Include="Map_GameMode3D.cpp">
-      <Filter>GameModes</Filter>
-    </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode_QuaternionTest.cpp">
-      <Filter>GameModes</Filter>
     </ClCompile>
     <ClCompile Include="Map_Animations.cpp">
       <Filter>GameModes\GameMode Animation</Filter>
@@ -100,6 +70,39 @@
     <ClCompile Include="MoveStateController.cpp">
       <Filter>GameModes\GameMode Animation</Filter>
     </ClCompile>
+    <ClCompile Include="GameMode_2BoneIK_3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_CCD_3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_EulerTest.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_FABRIK_3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_FABRIK_FwdOnly_3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_Quadruped_3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_RobotArm_3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_Spider_3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode2D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="Map_GameMode3D.cpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode_QuaternionTest.cpp">
+      <Filter>GameModes\GameMode Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameCommon.hpp">
@@ -111,28 +114,7 @@
     <ClInclude Include="EngineBuildPreferences.hpp">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Map_GameMode3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
     <ClInclude Include="GameModeBase.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_2BoneIK_3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_CCD_3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_Quadruped_3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_EulerTest.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_FABRIK_3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode2D.hpp">
       <Filter>GameModes</Filter>
     </ClInclude>
     <ClInclude Include="FoodManager.hpp">
@@ -147,20 +129,8 @@
     <ClInclude Include="Quadruped.hpp">
       <Filter>Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="GameMode_RobotArm_3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_Spider_3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
     <ClInclude Include="SpiderBase.hpp">
       <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_FABRIK_FwdOnly_3D.hpp">
-      <Filter>GameModes</Filter>
-    </ClInclude>
-    <ClInclude Include="GameMode_QuaternionTest.hpp">
-      <Filter>GameModes</Filter>
     </ClInclude>
     <ClInclude Include="Map_Animations.hpp">
       <Filter>GameModes\GameMode Animation</Filter>
@@ -178,6 +148,39 @@
       <Filter>GameModes\GameMode Animation</Filter>
     </ClInclude>
     <ClInclude Include="MoveStateController.hpp">
+      <Filter>GameModes\GameMode Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_2BoneIK_3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_CCD_3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_EulerTest.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_FABRIK_3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_FABRIK_FwdOnly_3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_Quadruped_3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_RobotArm_3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_Spider_3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode2D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="Map_GameMode3D.hpp">
+      <Filter>GameModes\Thesis Inverse Kinematics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode_QuaternionTest.hpp">
       <Filter>GameModes\GameMode Animation</Filter>
     </ClInclude>
   </ItemGroup>

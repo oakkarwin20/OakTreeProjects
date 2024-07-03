@@ -42,7 +42,7 @@ void AnimationTimeline::RenderAnimPose( std::vector<Vertex_PCU>& verts ) const
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AnimationTimeline::RenderUI( BitmapFont* bitmapFont, std::vector<Vertex_PCU>& textVerts, std::vector<Vertex_PCU>& verts, Rgba8 const& boundsColor, float caretThickness, Rgba8 const& caretColor, float keyframeRadius, Rgba8 const& translationKeyframeColor, Rgba8 const& rotationKeyframeColor, Rgba8 const& scaleKeyframeColor ) const
+void AnimationTimeline::RenderUI( BitmapFont* bitmapFont, std::vector<Vertex_PCU>& textVerts, std::vector<Vertex_PCU>& verts, Rgba8 const& boundsColor, float caretThickness, Rgba8 const& caretColor ) const
 {
 	if ( m_isVisible )
 	{
@@ -120,7 +120,7 @@ void AnimationTimeline::RenderUI( BitmapFont* bitmapFont, std::vector<Vertex_PCU
 		AddVertsForAABB2D( verts, m_infoBounds_scale, Rgba8::DARK_BLUE );		
 
 		// Animation Clip Name
-		std::string animClipName		= "ClipName: " + m_animClip->GetName();
+		std::string animClipName		= "ClipName: " + m_animClipToPlay->GetName();
 		Vec2		alignment			= Vec2( 0.0f, 0.0f );
 		bitmapFont->AddVertsForTextInBox2D( textVerts, m_infoBounds_animClipName, m_textHeight, animClipName, Rgba8::WHITE, 1.0f, alignment );
 		// Joint Name
@@ -159,8 +159,8 @@ void AnimationTimeline::UpdateCaretPos( Vec2 const& cursorPosNormalized, float S
  
  	// Hack to get anim local  time
  	float fractionWithinRange = GetFractionWithinRange( m_caretTime, m_bounds.m_mins.x, m_bounds.m_maxs.x );
- 	float range = m_animClip->m_endTime - m_animClip->m_startTime;
- 	m_caretTime = m_animClip->m_startTime + ( range * fractionWithinRange );
+ 	float range = m_animClipToPlay->m_endTime - m_animClipToPlay->m_startTime;
+ 	m_caretTime = m_animClipToPlay->m_startTime + ( range * fractionWithinRange );
 
 
 	// Old approach (wrong, incorrect offset with caretPosX)
@@ -179,44 +179,44 @@ void AnimationTimeline::UpdateCaretPos( Vec2 const& cursorPosNormalized, float S
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AnimationTimeline::UpdateAnimClipAndBindPose( AnimationClip* newAnimClip, AnimationPose const& newBindPose )
+void AnimationTimeline::SetAnimClipAndBindPose( AnimationClip* newAnimClip, AnimationPose& newBindPose )
 {
-	m_animClip = newAnimClip;
-	m_bindPoseToRender = newBindPose;
+	m_animClipToPlay	= newAnimClip;
+	m_bindPoseToRender	= newBindPose;
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------
 void AnimationTimeline::UpdateSampledPose( int numSlices )
 {
-	float sampleTime	= RangeMapClamped( m_caretPos.x, m_bounds.m_mins.x, m_bounds.m_maxs.x, m_animClip->m_startTime, m_animClip->m_endTime );
-	m_animPoseToRender	= m_animClip->SampleAnimPoseAtTime( sampleTime, m_bindPoseToRender );
+	float sampleTime	= RangeMapClamped( m_caretPos.x, m_bounds.m_mins.x, m_bounds.m_maxs.x, m_animClipToPlay->m_startTime, m_animClipToPlay->m_endTime );
+	m_animPoseToRender	= m_animClipToPlay->SampleAnimPoseAtTime( sampleTime, m_bindPoseToRender );
 	UpdateKeyframePositions( numSlices );
 }
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void AnimationTimeline::UpdateKeyframePositions( int numSlices )
+void AnimationTimeline::UpdateKeyframePositions( int numSlices, float keyframeRadius )
 {
 	m_keyframeVerts.clear();
 //	m_keyframeVerts.reserve();		// #Todo: Reserve based on size of animation
 
-	float keyframeRadius = 1.0f;
 	Rgba8 const& translationKeyframeColor	= Rgba8::RED;
 	Rgba8 const& rotationKeyframeColor		= Rgba8::GREEN; 
 	Rgba8 const& scaleKeyframeColor			= Rgba8::BLUE;
+
 	// Loop through all jointCurves in animClip
 	// Get keyframes at time
 	// rangemap keyFrameTime to bounds.X
 	// AddVertsForDisc at rangeMappedPos
-	float animClipStartTime = m_animClip->m_startTime;
-	float animClipEndTime	= m_animClip->m_endTime;
+	float animClipStartTime = m_animClipToPlay->m_startTime;
+	float animClipEndTime	= m_animClipToPlay->m_endTime;
 	float boundsMinX		= m_bounds.m_mins.x;
 	float boundsMaxX		= m_bounds.m_maxs.x;
 	float boundsMaxY		= m_bounds.m_maxs.y;
-	for ( int i = 0; i < m_animClip->m_jointCurveList.size(); i++ )
+	for ( int i = 0; i < m_animClipToPlay->m_jointCurveList.size(); i++ )
 	{
-		JointAnimationCurve	const& curJointCurve	 = m_animClip->m_jointCurveList[i]; 
+		JointAnimationCurve	const& curJointCurve	 = m_animClipToPlay->m_jointCurveList[i]; 
 
 		// Get debugPosition to render for translation keyframes on the timeline, rangemapped within the timeline bounds
 		std::vector<Vec3Keyframe> const& translationKeyframeList = curJointCurve.m_positionKeyframeList;
@@ -352,6 +352,57 @@ bool AnimationTimeline::IsVisible() const
 	return m_isVisible;
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------
+// Init pointers to animClips in memory to avoid duplicating data
+void AnimationTimeline::InitAnimClipList( std::vector<AnimationClip>& animClipList )
+{
+	int sizeOfAnimClipList = int( animClipList.size() );
+	m_animClipList.reserve( sizeOfAnimClipList );
+	for ( int i = 0; i < sizeOfAnimClipList; i++ )
+	{
+		AnimationClip& curAnimClip = animClipList[ i ];
+		m_animClipList.push_back( &curAnimClip );
+	}
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------
+void AnimationTimeline::InitAnimPoseList( std::vector<AnimationPose>& animPoseList )
+{
+	int sizeOfAnimPoseList = int( animPoseList.size() );
+	m_animPoseList.reserve( sizeOfAnimPoseList );
+	for ( int i = 0; i < sizeOfAnimPoseList; i++ )
+	{
+		AnimationPose& curAnimPose = animPoseList[i];
+		m_animPoseList.push_back( &curAnimPose );
+	}
+}
+
+
+//----------------------------------------------------------------------------------------------------------------------
+void AnimationTimeline::IncrementAnimClipIndex()
+{
+	m_curAnimClipIndex++;
+	// "Out of bounds" check
+	if ( m_curAnimClipIndex >= m_animClipList.size() )
+	{
+		m_curAnimClipIndex = 0;
+	}
+	SetAnimClipAndBindPose( m_animClipList[ m_curAnimClipIndex ], *m_animPoseList[ m_curAnimClipIndex ] );
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+void AnimationTimeline::DecrementAnimClipIndex()
+{
+	m_curAnimClipIndex--;
+	// "Out of bounds" check
+	if ( m_curAnimClipIndex < 0 )
+	{
+		m_curAnimClipIndex = ( int(m_animClipList.size()) - 1);
+	}
+	SetAnimClipAndBindPose( m_animClipList[ m_curAnimClipIndex ], *m_animPoseList[ m_curAnimClipIndex ] );
+}
 
 //----------------------------------------------------------------------------------------------------------------------
 void AnimationTimeline::SelectCaret()

@@ -52,6 +52,9 @@ public:
 	float				 m_timeScalarMS			= 1000.0f;
 
 
+	std::vector<AnimationClip> m_animClipList;
+	std::vector<AnimationPose> m_animPoseList;
+
 	// Animation variables
 	AnimationPose m_animBindPose_Run;
 	AnimationClip m_animClip_Run;

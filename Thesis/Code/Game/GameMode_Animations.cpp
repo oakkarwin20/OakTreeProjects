@@ -72,13 +72,26 @@ void GameMode_Animations::Startup()
 // 		time += 100.0f;
 // 	}
 
-	 m_map	  = new Map_Animations();
-	 m_player = new Player( this, Vec3(0.0f, 0.0f, 1.0f) );
-	 m_player->Update( 0.016f );
+	m_map	  = new Map_Animations();
+	m_player = new Player( this, Vec3(0.0f, 0.0f, 1.0f) );
+	m_player->Update( 0.016f );
 
-	 // Init animation timeline
-	 m_animTimeline.UpdateAnimClipAndBindPose( &m_player->m_animController->m_animClip_Vault, m_player->m_animController->m_animBindPose_Vault );
-	 m_animTimeline.UpdateSampledPose();
+	// Init animation timeline
+// 	m_animTimeline.SetAnimClipAndBindPose( &m_player->m_animController->m_animClip_Vault, m_player->m_animController->m_animBindPose_Vault );
+// 	m_animTimeline.UpdateSampledPose();
+
+	//----------------------------------------------------------------------------------------------------------------------
+	// Init pointers to animClips and animPoses inside the anim timeline
+	// animClips and animPoses are stored in the animController class
+	//----------------------------------------------------------------------------------------------------------------------
+	std::vector<AnimationClip>& animClipList = m_player->m_animController->m_animClipList;
+	std::vector<AnimationPose>& animPoseList = m_player->m_animController->m_animPoseList;
+	m_animTimeline.InitAnimClipList( animClipList );
+	m_animTimeline.InitAnimPoseList( animPoseList );
+
+	// Init animation timeline
+	m_animTimeline.SetAnimClipAndBindPose( m_animTimeline.m_animClipList[0], *m_animTimeline.m_animPoseList[0] );
+	m_animTimeline.UpdateSampledPose();
 }
 
 
@@ -490,7 +503,7 @@ void GameMode_Animations::RenderUIObjects() const
 	verts.reserve( 350'000 );
 	if ( g_ToggleAnimTimeline_Delete )
 	{
-		m_animTimeline.RenderUI( g_theApp->m_textFont, textVerts, verts, Rgba8::DARK_GRAY, 2.0f, Rgba8::MAGENTA, 1.0f );
+		m_animTimeline.RenderUI( g_theApp->m_textFont, textVerts, verts, Rgba8::DARK_GRAY, 2.0f, Rgba8::MAGENTA );
 	}
 	
 	//----------------------------------------------------------------------------------------------------------------------
@@ -718,11 +731,19 @@ void GameMode_Animations::UpdateAnimTimeline()
 {
 	if ( g_theInput->WasKeyJustPressed( '1' ) )
 	{
-		m_animTimeline.UpdateAnimClipAndBindPose( &m_player->m_animController->m_animClip_FlyingLeftKick, m_player->m_animController->m_animBindPose_FlyingLeftKick );
+		m_animTimeline.SetAnimClipAndBindPose( &m_player->m_animController->m_animClip_FlyingLeftKick, m_player->m_animController->m_animBindPose_FlyingLeftKick );
 	}
 	if ( g_theInput->WasKeyJustPressed( '2' ) )
 	{
-		m_animTimeline.UpdateAnimClipAndBindPose( &m_player->m_animController->m_animClip_HighLeftKick, m_player->m_animController->m_animBindPose_HighLeftKick );
+		m_animTimeline.SetAnimClipAndBindPose( &m_player->m_animController->m_animClip_HighLeftKick, m_player->m_animController->m_animBindPose_HighLeftKick );
+	}
+	if ( g_theInput->WasKeyJustPressed( KEYCODE_LEFTARROW ) )
+	{
+		m_animTimeline.DecrementAnimClipIndex();
+	}
+	if ( g_theInput->WasKeyJustPressed( KEYCODE_RIGHTARROW ) )
+	{
+		m_animTimeline.IncrementAnimClipIndex();
 	}
 
 	if ( g_theInput->IsKeyDown( KEYCODE_LEFT_MOUSE ) )

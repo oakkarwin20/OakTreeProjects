@@ -27,7 +27,7 @@ void DestroyFBX   ( FbxScene** fbxScene, FbxManager** fbxManager );
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void FbxFileImporter::LoadAnimationPose( std::string const& fileName, AnimationPose& newAnimationPose )
+void FbxFileImporter::LoadAnimationPose( std::string const& fileName, AnimationPose& newAnimationPose, std::string const& poseName )
 {
     FbxScene*   fbxScene    = nullptr;
     FbxManager* fbxManager  = nullptr;
@@ -83,6 +83,10 @@ void FbxFileImporter::LoadAnimationPose( std::string const& fileName, AnimationP
     }
 
     DestroyFBX( &fbxScene, &fbxManager );
+
+    // Manually set for debugging
+    // #ToDo: set name using fbxsdk instead of the function parameter
+    newAnimationPose.m_poseName = poseName;
 
 	// Breath first search approach 
 // 	Init FBX
@@ -177,6 +181,7 @@ void FbxFileImporter::LoadAnimationPose( std::string const& fileName, AnimationP
 // 		fbxScene->Destroy();
 // 		fbxManager->Destroy();
 }
+
 
 //----------------------------------------------------------------------------------------------------------------------
 // Note: This function was used for TESTING, mostly.
@@ -285,11 +290,15 @@ void FbxFileImporter::LoadCurveForAllJointsAtElapsedTime( std::string const& fil
 
 
 //----------------------------------------------------------------------------------------------------------------------
-void FbxFileImporter::LoadAnimationClip( std::string const& fileName, AnimationClip& animationClip, AnimationPose const& bindAnimationPose, std::string const& clipName )
+// Parse FBX file and load animation clip data into 'animationClip'
+// 'clipName' is a parameter passed for now since I don't know how to get the name of the anim clip using the fbxsdk, 
+// #ToDo: Get animClip name via the fbxsdk instead of passing in a parameter manually
+//----------------------------------------------------------------------------------------------------------------------
+void FbxFileImporter::LoadAnimationClip( std::string const& filePath, AnimationClip& animationClip, AnimationPose const& bindAnimationPose, std::string const& clipName )
 {
     FbxScene*   fbxScene    = nullptr;
     FbxManager* fbxManager  = nullptr;
-    InitializeFBX( fileName, &fbxScene, &fbxManager );
+    InitializeFBX( filePath, &fbxScene, &fbxManager );
 
     // Load the first animation stack
     // Ensure AT LEAST one animation stack exists

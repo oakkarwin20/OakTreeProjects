@@ -16,7 +16,6 @@ AnimationController::AnimationController( Player* player, PhysicsController* phy
 	, m_physicsController( physicsController )
 	, m_moveStateController( moveStateController )
 {
-
 	//----------------------------------------------------------------------------------------------------------------------
 	// Animation test
 //	FbxFileImporter::LoadAnimationPose( "Data/Animations/MayaCubeMesh2.fbx",			m_bindAnimationPose					);
@@ -25,38 +24,38 @@ AnimationController::AnimationController( Player* player, PhysicsController* phy
 //	FbxFileImporter::LoadAnimationPose( "Data/Animations/TPose.fbx",					m_bindAnimationPose					);
 //	FbxFileImporter::LoadAnimationPose( "Data/Animations/Fast Run.fbx",					m_bindAnimationPose					);
 //	FbxFileImporter::LoadAnimationPose( "Data/Animations/Run.fbx",						m_bindAnimationPose					);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Idle.fbx",				m_animBindPose_Idle					);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Run.fbx",					m_animBindPose_Run					);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Walk.fbx",				m_animBindPose_Walk					);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/JumpRunning.fbx",			m_animBindPose_Jump					);
-//	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Jump.fbx",				m_animBindPose_Jump					);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/TurnLeft.fbx",			m_animBindPose_TurnLeft				);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/TurnRight.fbx",			m_animBindPose_TurnRight			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/TwistDance.fbx",			m_animBindPose_TwistDance			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingIdle.fbx",			m_animBindPose_FallingIdle			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingToLanding.fbx",	m_animBindPose_FallingToLanding		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingToRoll.fbx",		m_animBindPose_FallingToRoll		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingToLand.fbx",		m_animBindPose_FallingToLand		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FlyingLeftKick.fbx",		m_animBindPose_FlyingLeftKick		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/HighLeftKick.fbx",		m_animBindPose_HighLeftKick			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightCrescentKick.fbx",	m_animBindPose_RightCrescentKick	);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/LeftJabPunch.fbx",		m_animBindPose_LeftJabPunch			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightJabPunch.fbx",		m_animBindPose_RightJabPunch		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightHook.fbx",			m_animBindPose_RightHook			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightCrossPunch.fbx",		m_animBindPose_RightCrossPunch		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FrontFlip.fbx",			m_animBindPose_FrontFlip			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FrontFlipTwist.fbx",		m_animBindPose_FrontFlipTwist		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FrontFlipRoll.fbx",		m_animBindPose_FrontFlipRoll		);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Vault.fbx",				m_animBindPose_Vault				);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/CrouchedIdle.fbx",		m_animBindPose_CrouchedIdle			);
-	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/CrouchedWalkForward.fbx",	m_animBindPose_CrouchedWalkForward	);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Idle.fbx",				m_animBindPose_Idle					, "Idle"				);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Run.fbx",					m_animBindPose_Run					, "Run"					);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Walk.fbx",				m_animBindPose_Walk					, "Walk"				);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/JumpRunning.fbx",			m_animBindPose_Jump					, "Jump"				);
+//	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Jump.fbx",				m_animBindPose_Jump					, "Jump"				);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/TurnLeft.fbx",			m_animBindPose_TurnLeft				, "TurnLeft	"			);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/TurnRight.fbx",			m_animBindPose_TurnRight			, "TurnRight"			);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/TwistDance.fbx",			m_animBindPose_TwistDance			, "TwistDance"			);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingIdle.fbx",			m_animBindPose_FallingIdle			, "FallingIdle"			);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingToLanding.fbx",	m_animBindPose_FallingToLanding		, "FallingToLanding"	);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingToRoll.fbx",		m_animBindPose_FallingToRoll		, "FallingToRoll"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FallingToLand.fbx",		m_animBindPose_FallingToLand		, "FallingToLand"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FlyingLeftKick.fbx",		m_animBindPose_FlyingLeftKick		, "FlyingLeftKick"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/HighLeftKick.fbx",		m_animBindPose_HighLeftKick			, "HighLeftKick"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightCrescentKick.fbx",	m_animBindPose_RightCrescentKick	, "RightCrescentKick"	);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/LeftJabPunch.fbx",		m_animBindPose_LeftJabPunch			, "LeftJabPunch"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightJabPunch.fbx",		m_animBindPose_RightJabPunch		, "RightJabPunch"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightHook.fbx",			m_animBindPose_RightHook			, "RightHook"			);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/RightCrossPunch.fbx",		m_animBindPose_RightCrossPunch		, "RightCrossPunch"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FrontFlip.fbx",			m_animBindPose_FrontFlip			, "FrontFlip"			);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FrontFlipTwist.fbx",		m_animBindPose_FrontFlipTwist		, "FrontFlipTwist"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/FrontFlipRoll.fbx",		m_animBindPose_FrontFlipRoll		, "FrontFlipRoll"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/Vault.fbx",				m_animBindPose_Vault				, "Vault"				);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/CrouchedIdle.fbx",		m_animBindPose_CrouchedIdle			, "CrouchedIdle"		);
+	FbxFileImporter::LoadAnimationPose( "Data/Animations/Xbot/CrouchedWalkForward.fbx",	m_animBindPose_CrouchedWalkForward	, "CrouchedWalkForward"	);
 
 	// 0 keyframe
 //	FbxFileImporter::LoadCurveForAllJointsAtElapsedTime( "Data/Animations/Run.fbx", m_newAnimationPose, m_bindAnimationPose, m_elapsedAnimationTime );		// Used for testing
 //	FbxFileImporter::LoadAnimationClip( "Data/Animations/Run.fbx",						m_animationClip,				m_bindAnimationPose				);
 //	FbxFileImporter::LoadAnimationClip( "Data/Animations/Fast Run.fbx",					m_animationClip,				m_bindAnimationPose				);
-	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/Run.fbx",					m_animClip_Run,					m_animBindPose_Run					, "Run"					);
 	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/Idle.fbx",				m_animClip_Idle,				m_animBindPose_Idle					, "Idle"				);
+	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/Run.fbx",					m_animClip_Run,					m_animBindPose_Run					, "Run"					);
 	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/Walk.fbx",				m_animClip_Walk,				m_animBindPose_Walk					, "Walk"				);
 	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/JumpRunning.fbx",			m_animClip_Jump,				m_animBindPose_Jump					, "Jump"				);
 //	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/Jump.fbx",				m_animClip_Jump,				m_animBindPose_Jump					, "Jump"				);
@@ -80,6 +79,60 @@ AnimationController::AnimationController( Player* player, PhysicsController* phy
 	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/Vault.fbx",				m_animClip_Vault,				m_animBindPose_Vault				, "Vault"				);
 	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/CrouchedIdle.fbx",		m_animClip_CrouchedIdle,		m_animBindPose_CrouchedIdle			, "CrouchedIdle"		);
 	FbxFileImporter::LoadAnimationClip( "Data/Animations/Xbot/CrouchedWalkForward.fbx",	m_animClip_CrouchedWalkForward,	m_animBindPose_CrouchedWalkForward	, "CrouchedWalkForward"	);
+	
+	// Store animations as a list instead of a separate variables
+	// Store clips
+	m_animClipList.push_back( m_animClip_Run					);
+	m_animClipList.push_back( m_animClip_Idle					);
+	m_animClipList.push_back( m_animClip_Walk					);
+	m_animClipList.push_back( m_animClip_Jump					);
+	m_animClipList.push_back( m_animClip_Jump					);
+	m_animClipList.push_back( m_animClip_TurnLeft 				);
+	m_animClipList.push_back( m_animClip_TurnRight				);
+	m_animClipList.push_back( m_animClip_TwistDance				);
+	m_animClipList.push_back( m_animClip_FallingIdle			);
+	m_animClipList.push_back( m_animClip_FallingToLanding		);
+	m_animClipList.push_back( m_animClip_FallingToRoll			);
+	m_animClipList.push_back( m_animClip_FallingToLand			);
+	m_animClipList.push_back( m_animClip_FlyingLeftKick			);
+	m_animClipList.push_back( m_animClip_HighLeftKick			);
+	m_animClipList.push_back( m_animClip_RightCrescentKick		);
+	m_animClipList.push_back( m_animClip_LeftJabPunch			);
+	m_animClipList.push_back( m_animClip_RightJabPunch			);
+	m_animClipList.push_back( m_animClip_RightHook				);
+	m_animClipList.push_back( m_animClip_RightCrossPunch		);
+	m_animClipList.push_back( m_animClip_FrontFlip				);
+	m_animClipList.push_back( m_animClip_FrontFlipTwist			);
+	m_animClipList.push_back( m_animClip_FrontFlipRoll			);
+	m_animClipList.push_back( m_animClip_Vault					);
+	m_animClipList.push_back( m_animClip_CrouchedIdle			);
+	m_animClipList.push_back( m_animClip_CrouchedWalkForward	);
+	// Store poses
+	m_animPoseList.push_back(  m_animBindPose_Run					);
+	m_animPoseList.push_back(  m_animBindPose_Idle					);
+	m_animPoseList.push_back(  m_animBindPose_Walk					);
+	m_animPoseList.push_back(  m_animBindPose_Jump					);
+	m_animPoseList.push_back(  m_animBindPose_Jump					);
+	m_animPoseList.push_back(  m_animBindPose_TurnLeft				);
+	m_animPoseList.push_back(  m_animBindPose_TurnRight				);
+	m_animPoseList.push_back(  m_animBindPose_TwistDance			);
+	m_animPoseList.push_back(  m_animBindPose_FallingIdle			);
+	m_animPoseList.push_back(  m_animBindPose_FallingToLanding		);
+	m_animPoseList.push_back(  m_animBindPose_FallingToRoll			);
+	m_animPoseList.push_back(  m_animBindPose_FallingToLand			);
+	m_animPoseList.push_back(  m_animBindPose_FlyingLeftKick		);
+	m_animPoseList.push_back(  m_animBindPose_HighLeftKick			);
+	m_animPoseList.push_back(  m_animBindPose_RightCrescentKick		);
+	m_animPoseList.push_back(  m_animBindPose_LeftJabPunch			);
+	m_animPoseList.push_back(  m_animBindPose_RightJabPunch			);
+	m_animPoseList.push_back(  m_animBindPose_RightHook				);
+	m_animPoseList.push_back(  m_animBindPose_RightCrossPunch		);
+	m_animPoseList.push_back(  m_animBindPose_FrontFlip				);
+	m_animPoseList.push_back(  m_animBindPose_FrontFlipTwist		);
+	m_animPoseList.push_back(  m_animBindPose_FrontFlipRoll			);
+	m_animPoseList.push_back(  m_animBindPose_Vault					);
+	m_animPoseList.push_back(  m_animBindPose_CrouchedIdle			);
+	m_animPoseList.push_back(  m_animBindPose_CrouchedWalkForward	);
 }
 
 
